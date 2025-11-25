@@ -10,6 +10,7 @@ import { InputIconModule } from 'primeng/inputicon';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputTextModule } from 'primeng/inputtext';
 import { Request } from '@/core/models/request.model';
+import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
     selector: 'visao-geral',
@@ -22,7 +23,8 @@ import { Request } from '@/core/models/request.model';
     ButtonModule,
     InputIconModule,
     IconFieldModule,
-    InputTextModule
+    InputTextModule,
+    SkeletonModule
     ],
     templateUrl: './visao-geral.html'
 })

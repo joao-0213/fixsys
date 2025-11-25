@@ -99,11 +99,11 @@ export class VisualizarSolicitacao implements OnInit {
             case "ARRUMADA": 
                 return(`Equipamento reparado: ${request.descManutencao} Orientações: ${request.observacao}`);
             case "REDIRECIONADA": 
-                return(`Solicitação redirecionada de ${history.autor} para ${history.funcionarioDestino}.`);
+                return(`${history.observacao}.`);
             case "PAGA": 
                 return(`Serviço pago pelo cliente.`);
             case "FINALIZADA": 
-                return(`Solicitação finalizada pelo funcionário ${history.autor}.`);
+                return(`${history.observacao}.`);
             default:
                 return("Desconhecido.");
         }

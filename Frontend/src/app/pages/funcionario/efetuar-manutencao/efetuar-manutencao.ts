@@ -14,7 +14,7 @@ import { Request } from '@/core/models/request.model';
 import { Cliente } from '@/core/models/cliente.model';
 import { Funcionario } from '@/core/models/funcionario.model';
 import { FuncionarioService } from '../services/funcionario.service';
-import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
     selector: 'efetuar-manutencao',
@@ -29,9 +29,8 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
     DialogModule,
     TextareaModule,
     SelectModule,
-    ProgressSpinnerModule
+    SkeletonModule
     ],
-    providers: [ProgressSpinnerModule],
     templateUrl: './efetuar-manutencao.html',
     
 })

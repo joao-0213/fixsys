@@ -1,4 +1,38 @@
 <div class="card">
+        @if (!requests) {
+        <div class="font-semibold text-xl mb-4 mr-5">Visão Geral</div>
+        <div class="flex justify-end items-center mb-8">
+            <div class="flex gap-5">
+                <p-iconfield iconPosition="left" class="mb-8">
+                    <p-inputicon>
+                        <i class="pi pi-search"></i>
+                    </p-inputicon>
+                    <input pInputText type="text" disabled="true" pSize="large" class="w-full md:w-100" placeholder="Insira uma palavra-chave para buscar" />
+                </p-iconfield>
+            </div>
+        </div>
+        <div class="flex justify-between mb-2 font-semibold">
+            <p-skeleton width="5%" height="1.5rem"></p-skeleton>
+            <p-skeleton width="25%" height="1.5rem"></p-skeleton>
+            <p-skeleton width="30%" height="1.5rem"></p-skeleton>
+            <p-skeleton width="20%" height="1.5rem"></p-skeleton>
+            <p-skeleton width="15%" height="1.5rem"></p-skeleton>
+        </div>
+
+        <div class="flex flex-col gap-3 mt-6">
+            @for (_ of [1,2,3,4,5,6,7,8]; track _) {
+                <div class="flex justify-between items-center border border-surface p-3 rounded-md">
+                    <p-skeleton width="5%" height="5rem"></p-skeleton>
+                    <p-skeleton width="25%" height="5rem"></p-skeleton>
+                    <p-skeleton width="30%" height="5rem"></p-skeleton>
+                    <p-skeleton width="20%" height="5rem"></p-skeleton>
+                    <p-skeleton width="15%" height="5rem"></p-skeleton>
+                </div>
+            }
+        </div>
+    }
+
+    @else {
     <div class="font-semibold text-xl mb-12">Visão Geral</div>
     <div class="flex justify-between items-center mb-8">
         <p-tag icon="pi pi-info-circle" value="Solicitações Abertas" class="p-tag-aberta big-tag"/>
@@ -66,4 +100,5 @@
                 </tr>
             </ng-template>
         </p-table>
+    }
 </div>

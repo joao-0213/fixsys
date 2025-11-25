@@ -11,14 +11,8 @@ import { AuthService } from '@/core/services/auth.service';
 import { UserService } from '@/core/services/user.service';
 import { Request } from '@/core/models/request.model';
 import { MessageService } from 'primeng/api';
-
-interface Cliente {
-  id: number;
-  nome: string;
-  email: string;
-  telefone?: string;
-  endereco?: string;
-}
+import { Cliente } from '@/core/models/cliente.model';
+import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
     selector: 'realizar-orcamento',
@@ -31,7 +25,8 @@ interface Cliente {
     MessageModule,
     ReactiveFormsModule,
     InputTextModule,
-    InputNumberModule
+    InputNumberModule,
+    SkeletonModule
     ],
     templateUrl: './realizar-orcamento.html',
 })

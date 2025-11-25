@@ -1,6 +1,5 @@
 package com.web2.manutencaoBackend.repository;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 

@@ -19,6 +19,7 @@ import { MessageService } from 'primeng/api';
 import { Request } from '@/core/models/request.model';
 import { CommonModule } from '@angular/common';
 import { DatePickerModule } from 'primeng/datepicker';
+import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
     selector: 'solicitacoes',
@@ -36,7 +37,8 @@ import { DatePickerModule } from 'primeng/datepicker';
     FormsModule,
     ConfirmDialogModule,
     DatePickerModule,
-    CommonModule
+    CommonModule,
+    SkeletonModule
     ],
 
     templateUrl: './solicitacoes.html'

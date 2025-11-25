@@ -1,5 +1,5 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, inject, PipeTransform } from '@angular/core';
+import { CommonModule, CurrencyPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import jsPDF from 'jspdf';
@@ -7,12 +7,13 @@ import autoTable from 'jspdf-autotable';
 
 
 import { RelatorioService } from './relatorio.service';
-import { Receita, CategoriaAgrupada } from './receita.model';
+import { Receita } from './receita.model';
 
 @Component({
   selector: 'relatorios',
   standalone: true,
   imports: [CommonModule, FormsModule],
+  providers: [CurrencyPipe],
   template: `
 <div class="card">
   <div class="font-semibold text-2xl mb-6">Relatórios</div>
@@ -48,14 +49,12 @@ import { Receita, CategoriaAgrupada } from './receita.model';
         <tr>
           <th class="px-4 py-2 border">Data</th>
           <th class="px-4 py-2 border">Valor</th>
-          <th class="px-4 py-2 border">Categoria</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let r of receitas">
           <td class="px-4 py-2 border">{{ r.data }}</td>
-          <td class="px-4 py-2 border">R$ {{ r.valor.toFixed(2) }}</td>
-          <td class="px-4 py-2 border">{{ r.categoria }}</td>
+          <td class="px-4 py-2 border">{{ r.total.toFixed(2) | currency:'BRL':'symbol':'1.2-2':'pt' }}</td>
         </tr>
       </tbody>
     </table>
@@ -103,6 +102,7 @@ import { Receita, CategoriaAgrupada } from './receita.model';
 export class Relatorios implements OnInit {
 
   private relatorioService = inject(RelatorioService);
+  private currencyPipe = inject(CurrencyPipe);
 
   filtro = {
     dataInicial: '',
@@ -110,7 +110,7 @@ export class Relatorios implements OnInit {
   };
 
   receitas: Receita[] = [];
-  categorias: CategoriaAgrupada[] = [];
+  categorias: Receita[] = [];
 
   ngOnInit() {
     this.carregarReceitas();
@@ -121,7 +121,7 @@ export class Relatorios implements OnInit {
       .getReceitas(this.filtro.dataInicial, this.filtro.dataFinal)
       .subscribe({
         next: (dados) => this.receitas = dados,
-        error: () => alert('Erro ao carregar receitas do servidor.')
+/*         error: () => alert('Erro ao carregar receitas do servidor.') */
       });
   }
 
@@ -130,12 +130,12 @@ export class Relatorios implements OnInit {
 
   const agrupado: { [data: string]: number } = {};
   dadosFiltrados.forEach(r => {
-    agrupado[r.data] = (agrupado[r.data] || 0) + r.valor;
+    agrupado[r.data] = (agrupado[r.data] || 0) + r.total;
   });
 
-  const rows = Object.entries(agrupado).map(([data, total]) => [data, `R$ ${total.toFixed(2)}`]);
+  const rows = Object.entries(agrupado).map(([data, total]) => [data, this.currencyPipe.transform(total.toFixed(2), 'BRL', 'symbol', '1.2-2', 'pt')]);
 
-  const totalReceitas = dadosFiltrados.reduce((acc, r) => acc + r.valor, 0);
+  const totalReceitas = dadosFiltrados.reduce((acc, r) => acc + r.total, 0);
 
   const doc = new jsPDF();
   doc.setFontSize(14);
@@ -150,7 +150,7 @@ export class Relatorios implements OnInit {
 
   const finalY = (doc as any).lastAutoTable.finalY;
 
-  doc.text(`Total Geral: R$ ${totalReceitas.toFixed(2)}`, 14, finalY + 10);
+  doc.text(`Total Geral: R$ ${this.currencyPipe.transform(totalReceitas.toFixed(2), 'BRL', 'symbol', '1.2-2', 'pt')}`, 14, finalY + 10);
 
   doc.save('relatorio-receitas.pdf');
 }
@@ -161,7 +161,7 @@ this.relatorioService.getReceitasAgrupadasPorCategoria().subscribe({
 next: dados => {
   this.categorias = dados;
 
-  const rows = dados.map(c => [c.categoria, `R$ ${c.total.toFixed(2)}`]);
+  const rows = dados.map(c => [c.nomeCategoria, this.currencyPipe.transform(c.total.toFixed(2), 'BRL', 'symbol', '1.2-2', 'pt')]);
   const total = dados.reduce((sum, c) => sum + c.total, 0);
 
   const doc = new jsPDF();
@@ -177,7 +177,7 @@ next: dados => {
 
   const finalY = (doc as any).lastAutoTable.finalY;
 
-  doc.text(`Total Geral: R$ ${total.toFixed(2)}`, 14, finalY + 10);
+  doc.text(`Total Geral: R$ ${this.currencyPipe.transform(total.toFixed(2), 'BRL', 'symbol', '1.2-2', 'pt')}`, 14, finalY + 10);
 
   doc.save('relatorio-categorias.pdf');
 },
@@ -195,7 +195,7 @@ exportarCSV() {
 
 
   const linhas = this.receitas
-    .map(r => `${r.data},${r.valor},${r.categoria}`);
+    .map(r => `${r.data},${r.total},${r.nomeCategoria}`);
 
 
   const conteudo = "data,valor,categoria\n" + linhas.join("\n");

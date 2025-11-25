@@ -7,6 +7,7 @@ import { DialogModule } from 'primeng/dialog';
 import { MessageService } from 'primeng/api';
 import { Request } from '@/core/models/request.model';
 import { Orcamento } from '@/core/models/orcamento.model';
+import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
     selector: 'pagar-servico',
@@ -16,7 +17,8 @@ import { Orcamento } from '@/core/models/orcamento.model';
     RouterModule,
     DatePipe,
     DialogModule,
-    CommonModule
+    CommonModule,
+    SkeletonModule
     ],
     templateUrl: './pagar-servico.html',
 })

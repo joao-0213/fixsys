@@ -9,6 +9,7 @@ import { DialogModule } from 'primeng/dialog';
 import { MessageModule } from 'primeng/message';
 import { FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
+import { SkeletonModule } from 'primeng/skeleton';
 
 interface Categoria {
     id: number;
@@ -27,7 +28,8 @@ interface Categoria {
     InputTextModule,
     ReactiveFormsModule,
     MessageModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    SkeletonModule
     ],
     templateUrl: './gerenciar-categorias.html'
 })

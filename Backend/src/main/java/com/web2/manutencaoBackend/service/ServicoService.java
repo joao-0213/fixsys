@@ -158,7 +158,7 @@ public class ServicoService {
         servico.setStatus(Status.REDIRECIONADA);
         servico.setFuncionario(funcionarioDest);
         Servico atualizado = servicoRepository.save(servico);
-        String observacao = "Serviço redirecionado pelo funcionário: " + funcionario.getNome();
+        String observacao = "Serviço redirecionado de " + funcionario.getNome() + " para " + funcionarioDest.getNome();
         historicosService.save(atualizado, anterior, observacao);
         
         return atualizado;

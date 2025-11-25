@@ -1,20 +1,8 @@
 package com.web2.manutencaoBackend.entity;
 
 import java.time.LocalDateTime;
-
-import com.web2.manutencaoBackend.dto.FuncionarioRequestDTO;
-import com.web2.manutencaoBackend.dto.FuncionarioResponseDTO;
-
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-
-import lombok.AllArgsConstructor;
 import lombok.Data; 
 import lombok.NoArgsConstructor;
 

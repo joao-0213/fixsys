@@ -11,6 +11,7 @@ import { FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { DatePipe } from '@angular/common';
 import { Funcionario } from '@/core/models/funcionario.model';
+import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
     selector: 'gerenciar-funcionarios',
@@ -24,7 +25,8 @@ import { Funcionario } from '@/core/models/funcionario.model';
     ReactiveFormsModule,
     MessageModule,
     ConfirmDialogModule,
-    DatePipe
+    DatePipe,
+    SkeletonModule
     ],
     providers: [DatePipe],
     templateUrl: './gerenciar-funcionarios.html',
